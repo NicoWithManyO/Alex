@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning Équipes 2x8 et 5x8</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Colonne de gauche : Calendrier -->
+        <div class="column calendar-column">
+            <h2 id="reset-calendar">Calendrier</h2>
+            <div id="calendar-container" class="calendar-container">
+                <!-- Généré dynamiquement par JavaScript -->
+            </div>
+        </div>
+
+        <!-- Colonne centrale : Équipe 2x8 -->
+        <div class="column team-2x8-column">
+            <h2>Madame</h2>
+            <div id="team-2x8-container" class="team-container">
+                <!-- Généré dynamiquement par JavaScript -->
+            </div>
+        </div>
+
+        <!-- Colonne de droite : Équipe 5x8 -->
+        <div class="column team-5x8-column">
+            <h2>Monsieur</h2>
+            <div id="team-5x8-container" class="team-container">
+                <!-- Généré dynamiquement par JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="calendar.js"></script>
+    <script src="team-2x8.js"></script>
+    <script src="team-5x8.js"></script>
+    <script src="main.js"></script>
+
+    <!-- Modale pour atteindre une date -->
+    <div id="date-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Atteindre une date</h3>
+            <p>Entrez une date au format JJ/MM/AA</p>
+            <form id="date-form">
+                <input type="text" id="date-input" placeholder="JJ/MM/AA" pattern="[0-9]{2}/[0-9]{2}/[0-9]{2}" required autocomplete="off">
+                <button type="submit">Valider</button>
+            </form>
+            <button id="close-modal" type="button">Fermer</button>
+        </div>
+    </div>
+</body>
+</html> 
