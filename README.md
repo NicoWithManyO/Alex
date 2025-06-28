@@ -1,3 +1,6 @@
+# Lien Direct
+https://nicowithmanyo.github.io/Alex/
+
 # Planning Équipes 2x8 et 5x8
 
 Une application web pour gérer les plannings d'équipes en 2x8 et 5x8 avec un calendrier dynamique.
@@ -17,10 +20,10 @@ Une application web pour gérer les plannings d'équipes en 2x8 et 5x8 avec un c
 - Cycle fixe de 10 jours : 6 jours de travail + 4 jours de repos
 - Séquence : Matin, Matin, AM, AM, Nuit, Nuit, Repos, Repos, Repos, Repos
 - Couleurs différenciées :
-  - Bleu : Matin
-  - Rouge : Après-midi (AM)
-  - Noir : Nuit
-  - Vert : Repos
+  - Matin : Bleu (`#3498db`)
+  - Après-midi (AM) : Vert (`#2ecc71`)
+  - Nuit : Marron/jaune (`#b48a00`)
+  - Repos : Gris/transparent (`#555`)
 
 ## Utilisation
 
