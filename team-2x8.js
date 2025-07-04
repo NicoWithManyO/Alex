@@ -29,9 +29,9 @@ const Team2x8 = (function() {
 
         // Alternance : semaine paire = matin, semaine impaire = après-midi
         if (weekDifference % 2 === 0) {
-            return 'Matin';
-        } else {
             return 'Après-Midi';
+        } else {
+            return 'Matin';
         }
     }
     
