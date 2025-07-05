@@ -2,7 +2,10 @@
 const Team2x8 = (function() {
     const container = document.getElementById('team-2x8-container');
     let currentDaysCount = 0;
-    
+
+    // Date de référence fixe : 30 juin 2025 (lundi) = MATIN
+    const REFERENCE_DATE = new Date(2025, 5, 30); // 30 juin 2025 (mois 0-indexé)
+
     // Helper pour obtenir un ID unique pour une semaine (basé sur son lundi de départ)
     function getWeekId(date) {
         const d = new Date(date);
@@ -12,7 +15,7 @@ const Team2x8 = (function() {
         d.setHours(0, 0, 0, 0); // Normaliser l'heure
         return d.getTime();
     }
-    
+
     function getShiftForDay(dayIndex) {
         const date = Calendar.getDateForDay(dayIndex);
         const dayOfWeek = date.getDay(); // 0 pour Dimanche, 6 pour Samedi
@@ -21,20 +24,22 @@ const Team2x8 = (function() {
             return 'Repos';
         }
 
-        const startWeekId = getWeekId(Calendar.getDateForDay(0));
+        // Calculer la différence de semaines par rapport à la référence fixe
+        const referenceWeekId = getWeekId(REFERENCE_DATE);
         const currentWeekId = getWeekId(date);
-        
-        const weekInMillis = 7 * 24 * 60 * 60 * 1000;
-        const weekDifference = Math.round((currentWeekId - startWeekId) / weekInMillis);
 
-        // Alternance : semaine paire = matin, semaine impaire = après-midi
+        const weekInMillis = 7 * 24 * 60 * 60 * 1000;
+        const weekDifference = Math.round((currentWeekId - referenceWeekId) / weekInMillis);
+
+        // Semaine de référence (30 juin 2025) = MATIN
+        // Alternance : pair = MATIN, impair = APRÈS-MIDI
         if (weekDifference % 2 === 0) {
-            return 'Après-Midi';
-        } else {
             return 'Matin';
+        } else {
+            return 'Après-Midi';
         }
     }
-    
+
     function createShiftElement(shift) {
         const shiftDiv = document.createElement('div');
         let className = shift.toLowerCase().replace('après-midi', 'apres-midi');
@@ -50,11 +55,11 @@ const Team2x8 = (function() {
         shiftDiv.innerHTML = `<span class="full-text">${shift}</span><span class="short-text">${shortText}</span>`;
         return shiftDiv;
     }
-    
+
     function createDayRow(dayIndex) {
         const dayDiv = document.createElement('div');
         dayDiv.className = 'day-row';
-        
+
         // Ajout de la classe today-row si la date correspond à aujourd'hui
         const date = Calendar.getDateForDay(dayIndex);
         const today = new Date();
@@ -67,11 +72,11 @@ const Team2x8 = (function() {
 
         const shift = getShiftForDay(dayIndex);
         const shiftElement = createShiftElement(shift);
-        
+
         dayDiv.appendChild(shiftElement);
         return dayDiv;
     }
-    
+
     function generateShifts(count) {
         for (let i = 0; i < count; i++) {
             const dayElement = createDayRow(currentDaysCount + i);
@@ -79,29 +84,29 @@ const Team2x8 = (function() {
         }
         currentDaysCount += count;
     }
-    
+
     function updateShifts() {
         const calendarDaysCount = Calendar.getCurrentDaysCount();
         const neededDays = calendarDaysCount - currentDaysCount;
-        
+
         if (neededDays > 0) {
             generateShifts(neededDays);
         }
     }
-    
+
     function reset() {
         container.innerHTML = '';
         currentDaysCount = 0;
     }
-    
+
     function init() {
         // Au lieu d'écouter le scroll, on écoute l'événement personnalisé du calendrier.
         // C'est plus propre et évite les conflits.
         document.addEventListener('calendarUpdated', updateShifts);
     }
-    
+
     return {
         init: init,
         reset: reset
     };
-})(); 
+})();
